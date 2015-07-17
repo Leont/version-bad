@@ -734,7 +734,7 @@ sub numify {
 	    my $denom = 10**(3-$width);
 	    my $quot = int($digit/$denom);
 	    my $rem = $digit - ($quot * $denom);
-	    $string .= sprintf("%0".$width."d_%d", $quot, $rem);
+	    $string .= sprintf("%0".$width."d%d", $quot, $rem);
 	}
 	else {
 	    $string .= sprintf("%03d", $digit);

@@ -862,7 +862,7 @@ Perl_vnumify(pTHX_ SV *vs)
 	if ( width < 3 ) {
 	    const int denom = (width == 2 ? 10 : 100);
 	    const div_t term = div((int)PERL_ABS(digit),denom);
-	    Perl_sv_catpvf(aTHX_ sv, "%0*d_%d", width, term.quot, term.rem);
+	    Perl_sv_catpvf(aTHX_ sv, "%0*d%d", width, term.quot, term.rem);
 	}
 	else {
 	    Perl_sv_catpvf(aTHX_ sv, "%0*d", width, (int)digit);
@@ -873,8 +873,6 @@ Perl_vnumify(pTHX_ SV *vs)
     {
 	SV * tsv = *av_fetch(av, len, 0);
 	digit = SvIV(tsv);
-	if ( alpha && width == 3 ) /* alpha version */
-	    sv_catpvs(sv,"_");
 	Perl_sv_catpvf(aTHX_ sv, "%0*d", width, (int)digit);
     }
     else /* len == 0 */
