@@ -152,9 +152,7 @@ sub BaseTests {
 
     $version = $CLASS->$method("1.2.3.4");
     $new_version = $CLASS->$method("1.2.3_4");
-    ok ( $version > $new_version, '$version > $new_version' );
-    ok ( $new_version < $version, '$new_version < $version' );
-    ok ( $version != $new_version, '$version != $new_version' );
+    ok ( $version == $new_version, '$version == $new_version' );
 
     $version = $CLASS->$method("v1.2.3");
     $new_version = $CLASS->$method("1.2.3.0");

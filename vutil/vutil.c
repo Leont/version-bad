@@ -1067,19 +1067,6 @@ Perl_vcmp(pTHX_ SV *lhv, SV *rhv)
 	i++;
     }
 
-    /* tiebreaker for alpha with identical terms */
-    if ( retval == 0 && l == r && left == right && ( lalpha || ralpha ) )
-    {
-	if ( lalpha && !ralpha )
-	{
-	    retval = -1;
-	}
-	else if ( ralpha && !lalpha)
-	{
-	    retval = +1;
-	}
-    }
-
     if ( l != r && retval == 0 ) /* possible match except for trailing 0's */
     {
 	if ( l < r )

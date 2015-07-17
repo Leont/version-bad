@@ -837,20 +837,6 @@ sub vcmp {
 	$i++;
     }
 
-    # tiebreaker for alpha with identical terms
-    if ( $retval == 0
-	&& $l == $r
-	&& $left->{version}[$m] == $right->{version}[$m]
-	&& ( $lalpha || $ralpha ) ) {
-
-	if ( $lalpha && !$ralpha ) {
-	    $retval = -1;
-	}
-	elsif ( $ralpha && !$lalpha) {
-	    $retval = +1;
-	}
-    }
-
     # possible match except for trailing 0's
     if ( $retval == 0 && $l != $r ) {
 	if ( $l < $r ) {
