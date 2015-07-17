@@ -762,26 +762,14 @@ sub normal {
 	require Carp;
 	Carp::croak("Invalid version object");
     }
-    my $alpha = $self->{alpha} || "";
-    my $qv = $self->{qv} || "";
 
     my $len = $#{$self->{version}};
     my $digit = $self->{version}[0];
     my $string = sprintf("v%d", $digit );
 
-    for ( my $i = 1 ; $i < $len ; $i++ ) {
+    for ( my $i = 1 ; $i <= $len ; $i++ ) {
 	$digit = $self->{version}[$i];
 	$string .= sprintf(".%d", $digit);
-    }
-
-    if ( $len > 0 ) {
-	$digit = $self->{version}[$len];
-	if ( $alpha ) {
-	    $string .= sprintf("_%0d", $digit);
-	}
-	else {
-	    $string .= sprintf(".%0d", $digit);
-	}
     }
 
     if ( $len <= 2 ) {
