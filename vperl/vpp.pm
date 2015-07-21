@@ -503,7 +503,7 @@ sub scan_version {
 	$$rv->{width} = $width;
     }
 
-    while (isDIGIT($pos)) {
+    while (isDIGIT($pos) || $pos eq '_') {
 	$pos++;
     }
     if (!isALPHA($pos)) {
@@ -524,6 +524,7 @@ sub scan_version {
  		if ( !$qv && $s > $start && $saw_decimal == 1 ) {
 		    $mult *= 100;
  		    while ( $s < $end ) {
+			next if $s eq '_';
 			$orev = $rev;
  			$rev += $s * $mult;
  			$mult /= 10;
@@ -543,6 +544,7 @@ sub scan_version {
   		}
  		else {
  		    while (--$end >= $s) {
+			next if $end eq '_';
 			$orev = $rev;
  			$rev += $end * $mult;
  			$mult *= 10;
@@ -587,7 +589,7 @@ sub scan_version {
 		last;
 	    }
 	    if ( $qv ) {
-		while ( isDIGIT($pos) ) {
+		while ( isDIGIT($pos) || $pos eq '_') {
 		    $pos++;
 		}
 	    }

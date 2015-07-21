@@ -315,7 +315,7 @@ Perl_scan_version(pTHX_ const char *s, SV *rv, bool qv)
     if ( !qv && width < 3 )
 	(void)hv_stores(MUTABLE_HV(hv), "width", newSViv(width));
 
-    while (isDIGIT(*pos))
+    while (isDIGIT(*pos) || *pos == '_')
 	pos++;
     if (!isALPHA(*pos)) {
 	I32 rev;
@@ -335,6 +335,8 @@ Perl_scan_version(pTHX_ const char *s, SV *rv, bool qv)
 		if ( !qv && s > start && saw_decimal == 1 ) {
 		    mult *= 100;
  		    while ( s < end ) {
+			if (*s == '_')
+			    continue;
 			orev = rev;
  			rev += (*s - '0') * mult;
  			mult /= 10;
@@ -353,6 +355,8 @@ Perl_scan_version(pTHX_ const char *s, SV *rv, bool qv)
   		}
  		else {
  		    while (--end >= s) {
+			if (*end == '_')
+			    continue;
 			int i  = (*end - '0');
                         if (   (mult == VERSION_MAX)
                             || (i > VERSION_MAX / mult)
@@ -400,7 +404,7 @@ Perl_scan_version(pTHX_ const char *s, SV *rv, bool qv)
 		break;
 	    }
 	    if ( qv ) {
-		while ( isDIGIT(*pos) )
+		while ( isDIGIT(*pos) || *pos == '_')
 		    pos++;
 	    }
 	    else {
